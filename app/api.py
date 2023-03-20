@@ -12,7 +12,3 @@ def index():
 def capture_img():
     msg = service.save_img(request.form["img"])
     return make_response(msg)
-
-@api.route('/hoge')
-def hoge():
-    return render_template('hoge.html')

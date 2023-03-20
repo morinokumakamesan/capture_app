@@ -19,16 +19,13 @@ video.addEventListener(
     true
 );
 
-// スペースキー押下時にキャプチャ取得を実行するリスナーを設定
-document.addEventListener('keydown', (event) => {
-    var keyName = event.key;
-    if (keyName === ' ') {
-        console.log(`keydown: SpaceKey`);
-        context = canvas.getContext('2d');
-        // 取得したbase64データのヘッドを取り除く
-        var img_base64 = canvas.toDataURL('image/jpeg').replace(/^.*,/, '')
-        captureImg(img_base64);
-    }
+var button = document.getElementById('cam');
+button.addEventListener('click', (event) => {
+    context = canvas.getContext('2d');
+    // 取得したbase64データのヘッドを取り除く
+    var img_base64 = canvas.toDataURL('image/jpeg').replace(/^.*,/, '')
+    captureImg(img_base64);
+    // }
 });
 
 var xhr = new XMLHttpRequest();
