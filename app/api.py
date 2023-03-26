@@ -8,11 +8,15 @@ from io import BytesIO
 from . import service
 import config
 
-api = Flask(__name__)
+api = Flask(__name__, static_url_path='/static')
 
 @api.route('/', methods=['GET'])
 def index():
     return render_template('index.html')
+
+@api.route('/show', methods=['GET'])
+def show():
+    return render_template('show.html')
 
 @api.route('/capture_img', methods=['POST'])
 def capture_img():
