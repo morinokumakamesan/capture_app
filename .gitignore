@@ -1,5 +1,6 @@
 .env
 __pycache__
+setup-pointless-repo.sh
 
 images/
 app/__pycache__/
