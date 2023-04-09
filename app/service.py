@@ -10,8 +10,11 @@ def save_img(img_base64):
     #raw image <- jpg
     img = cv2.imdecode(img_jpg, cv2.IMREAD_COLOR)
     #デコードされた画像の保存先パス
-    image_file="./app/static/images/capture.jpg"
-    #image_file="./images/capture.jpg"
+    #ローカル実行の場合
+    # image_file="./app/static/images/capture.jpg"
+    #Renderで実行の場合
+    image_file="/opt/render/project/src/capture_app/app/static/images/capture.jpg"
+
     #画像を保存
     cv2.imwrite(image_file, img)
     return "SUCCESS"
