@@ -65,8 +65,8 @@ def handle_image(event):
     line_bot_api.reply_message(
         event.reply_token,
         ImageSendMessage(
-            original_content_url = 'https://morinokumakamesan.netlify.app/_nuxt/img/124d80c.jpg',
-            preview_image_url = 'https://morinokumakamesan.netlify.app/_nuxt/img/124d80c.jpg'
+            original_content_url = 'https://capture-app.onrender.com/static/images/capture.jpg',
+            preview_image_url = 'https://capture-app.onrender.com/static/images/capture.jpg'
         )
     )
     print("画像の送信完了!!")
