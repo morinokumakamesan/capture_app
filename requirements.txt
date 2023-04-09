@@ -6,4 +6,4 @@ opencv-contrib-python==4.4.0.46
 opencv-python==4.4.0.46
 numpy==1.16
 uwsgi==2.0.20
-python-dotenv==1.0.0
+python-dotenv==0.21.1
