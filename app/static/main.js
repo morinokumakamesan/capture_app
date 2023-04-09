@@ -34,7 +34,10 @@ var xhr = new XMLHttpRequest();
 function captureImg(img_base64) {
     const body = new FormData();
     body.append('img', img_base64);
-    xhr.open('POST', 'http://localhost:3000/capture_img', true);
+    // Render
+    xhr.open('POST', 'https://capture-app.onrender.com/capture_img', true);
+    // ローカル
+    // xhr.open('POST', 'http://localhost:10000/capture_img', true);
     xhr.onload = () => {
         console.log(xhr.responseText)
     };
