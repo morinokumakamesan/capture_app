@@ -2,7 +2,7 @@ Flask==2.1.2
 requests==2.28.2
 line-bot-sdk==2.4.2
 Pillow==9.0.1
-numpy==1.24.2
-opencv-contrib-python==4.6.0.66
-opencv-python==4.6.0.66
-uwsgi==2.0.21
+opencv-contrib-python==4.6.0
+opencv-python==4.6.0
+numpy==1.18.5
+uwsgi
