@@ -21,11 +21,13 @@ video.addEventListener(
 
 var button = document.getElementById('cam');
 button.addEventListener('click', (event) => {
-    context = canvas.getContext('2d');
-    // 取得したbase64データのヘッドを取り除く
-    var img_base64 = canvas.toDataURL('image/jpeg').replace(/^.*,/, '')
-    captureImg(img_base64);
-    // }
+    // 定期実行
+    // setInterval(() => {
+        context = canvas.getContext('2d');
+        // 取得したbase64データのヘッドを取り除く
+        var img_base64 = canvas.toDataURL('image/jpeg').replace(/^.*,/, '')
+        captureImg(img_base64);
+    //   }, 5000);
 });
 
 var xhr = new XMLHttpRequest();
