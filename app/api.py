@@ -57,13 +57,12 @@ def handle_message(event):
         preview_image_url = 'https://capture-app.onrender.com/static/images/capture.jpg'
     )
     pprint(event)
-    pprint(event['source']['userId'])
+    pprint(event['source'])
     text_message = TextSendMessage(text=str(event['source']['userId']))
     line_bot_api.reply_message(
         event.reply_token, [image_message, text_message]
     )
     print("返信完了!!\ntext:", event.message.text)
-
 
 # botに画像を送ったときの処理
 @handler.add(MessageEvent, message=ImageMessage)
