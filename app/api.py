@@ -6,6 +6,7 @@ from linebot.models import MessageEvent, TextMessage, TextSendMessage, ImageMess
 from PIL import Image
 from io import BytesIO
 from . import service
+from pprint import pprint
 import config
 
 api = Flask(__name__, static_url_path='/static')
@@ -55,7 +56,8 @@ def handle_message(event):
         original_content_url = 'https://capture-app.onrender.com/static/images/capture.jpg',
         preview_image_url = 'https://capture-app.onrender.com/static/images/capture.jpg'
     )
-    print(event['source']['userId'])
+    pprint(event)
+    pprint(event['source']['userId'])
     text_message = TextSendMessage(text=str(event['source']['userId']))
     line_bot_api.reply_message(
         event.reply_token, [image_message, text_message]
