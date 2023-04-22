@@ -19,15 +19,25 @@ video.addEventListener(
     true
 );
 
-var button = document.getElementById('cam');
-button.addEventListener('click', (event) => {
-    // 定期実行
-    // setInterval(() => {
+var startButton = document.getElementById('start');
+startButton.addEventListener('click',  startCam)
+
+var intervalId = null;
+function startCam(){
+    console.log('start')
+    intervalId = setInterval(() => {
         context = canvas.getContext('2d');
         // 取得したbase64データのヘッドを取り除く
         var img_base64 = canvas.toDataURL('image/jpeg').replace(/^.*,/, '')
         captureImg(img_base64);
-    //   }, 5000);
+        console.log(intervalId)
+    }, 3000);
+}
+
+var button = document.getElementById('end');
+button.addEventListener('click', (event) => {
+    // 定期実行の終了
+    clearInterval(intervalId)
 });
 
 var xhr = new XMLHttpRequest();
