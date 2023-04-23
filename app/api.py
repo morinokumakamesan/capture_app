@@ -57,8 +57,8 @@ def handle_message(event):
         preview_image_url = 'https://capture-app.onrender.com/static/images/capture.jpg'
     )
     pprint(event)
-    pprint(event.source.type)
-    text_message = TextSendMessage(text=str(event.source))
+    pprint(event.source.user_id)
+    text_message = TextSendMessage(text=str(event.source.user_id))
     line_bot_api.reply_message(
         event.reply_token, [image_message, text_message]
     )
