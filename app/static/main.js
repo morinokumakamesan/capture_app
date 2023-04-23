@@ -55,3 +55,17 @@ function captureImg(img_base64) {
     };
     xhr.send(body);
 }
+
+var mydata = "";
+if(!localStorage.getItem('deviceId')) {
+    mydata = "deviceIdは発行されていません";
+} else {
+    mydata = localStorage.getItem('mydata');
+}
+document.getElementById("mydata_out").innerHTML = mydata;
+
+// 保存
+function generateDeviceId() {
+    var mydata = Math.random().toString(32).substring(2);
+    localStorage.setItem('mydata', mydata);
+}
