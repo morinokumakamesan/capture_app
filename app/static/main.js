@@ -9,7 +9,9 @@ document.getElementById("device_id").innerHTML = deviceId;
 
 var video = document.getElementById('video');
 // getUserMedia()でカメラ映像の取得
-var media = navigator.mediaDevices.getUserMedia({ video: true });
+// var media = navigator.mediaDevices.getUserMedia({ video: true });
+var media = navigator.mediaDevices.getUserMedia({ video: {facingMode: "environment"} });
+
 //リアルタイム再生（ストリーミング）を行うためにビデオタグに流し込む
 media.then((stream) => {
     video.srcObject = stream;
