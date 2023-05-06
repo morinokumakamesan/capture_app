@@ -24,8 +24,8 @@ def capture_img():
     msg = service.save_img(request.form["img"], request.form["deviceId"])
     return make_response(msg)
 
-line_bot_api = LineBotApi(config.LINE_CHANNEL_ACCESS_TOKEN)
-handler = WebhookHandler(config.LINE_CHANNEL_SECRET)
+line_bot_api_1 = LineBotApi(config.LINE_CHANNEL_ACCESS_TOKEN_1)
+handler_1 = WebhookHandler(config.LINE_CHANNEL_SECRET_1)
 # line_bot_api_2 = LineBotApi(config.LINE_CHANNEL_ACCESS_TOKEN_2)
 # handler_2 = WebhookHandler(config.LINE_CHANNEL_SECRET_2)
 
@@ -39,7 +39,7 @@ def callback():
     api.logger.info("Request body: " + body)
     # handle webhook body
     try:
-        handler.handle(body, signature)
+        handler_1.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
     # for handler in [handler_1, handler_2]:
@@ -52,7 +52,7 @@ def callback():
     return "OK"
 
 # botにメッセージを送ったときの処理
-@handler.add(MessageEvent, message=TextMessage)
+@handler_1.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print('文字を受信')
     image_message = ImageSendMessage(
@@ -60,6 +60,6 @@ def handle_message(event):
         preview_image_url = 'https://capture-app.onrender.com/static/images/r39rquo416g.jpg'
     )
     text_message = TextSendMessage(text=str(event.source.user_id))
-    line_bot_api.reply_message(
+    line_bot_api_1.reply_message(
         event.reply_token, [image_message, text_message]
     )
