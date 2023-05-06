@@ -21,7 +21,7 @@ def show():
 
 @api.route('/capture_img', methods=['POST'])
 def capture_img():
-    msg = service.save_img(request.form["img"])
+    msg = service.save_img(request.form["img"], request.form["deviceId"])
     return make_response(msg)
 
 line_bot_api = LineBotApi(config.LINE_CHANNEL_ACCESS_TOKEN)

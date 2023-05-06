@@ -1,3 +1,12 @@
+// device_idの発行
+var deviceId = "";
+if(!localStorage.getItem('deviceId')) {
+    var deviceId = Math.random().toString(32).substring(2);
+    localStorage.setItem('deviceId', deviceId);
+}
+deviceId = localStorage.getItem('deviceId');
+document.getElementById("device_id").innerHTML = deviceId;
+
 var video = document.getElementById('video');
 // getUserMedia()でカメラ映像の取得
 var media = navigator.mediaDevices.getUserMedia({ video: true });
@@ -46,26 +55,16 @@ var xhr = new XMLHttpRequest();
 function captureImg(img_base64) {
     const body = new FormData();
     body.append('img', img_base64);
+    body.append('deviceId', deviceId);
+
     // Render
-    xhr.open('POST', 'https://capture-app.onrender.com/capture_img', true);
+    // xhr.open('POST', 'https://capture-app.onrender.com/capture_img', true);
     // ローカル
-    // xhr.open('POST', 'http://localhost:10000/capture_img', true);
+    xhr.open('POST', 'http://localhost:10000/capture_img', true);
+
     xhr.onload = () => {
         console.log(xhr.responseText)
     };
     xhr.send(body);
 }
 
-var mydata = "";
-if(!localStorage.getItem('deviceId')) {
-    mydata = "deviceIdは発行されていません";
-} else {
-    mydata = localStorage.getItem('mydata');
-}
-document.getElementById("mydata_out").innerHTML = mydata;
-
-// 保存
-function generateDeviceId() {
-    var mydata = Math.random().toString(32).substring(2);
-    localStorage.setItem('mydata', mydata);
-}
