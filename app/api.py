@@ -24,10 +24,10 @@ def capture_img():
     msg = service.save_img(request.form["img"], request.form["deviceId"])
     return make_response(msg)
 
-line_bot_api_1 = LineBotApi(config.LINE_CHANNEL_ACCESS_TOKEN_1)
-handler_1 = WebhookHandler(config.LINE_CHANNEL_SECRET_1)
-line_bot_api_2 = LineBotApi(config.LINE_CHANNEL_ACCESS_TOKEN_2)
-handler_2 = WebhookHandler(config.LINE_CHANNEL_SECRET_2)
+line_bot_api = LineBotApi(config.LINE_CHANNEL_ACCESS_TOKEN)
+handler = WebhookHandler(config.LINE_CHANNEL_SECRET)
+# line_bot_api_2 = LineBotApi(config.LINE_CHANNEL_ACCESS_TOKEN_2)
+# handler_2 = WebhookHandler(config.LINE_CHANNEL_SECRET_2)
 
 # アプリにPOSTがあったときの処理
 @api.route("/callback", methods=["POST"])
@@ -38,13 +38,17 @@ def callback():
     body = request.get_data(as_text=True)
     api.logger.info("Request body: " + body)
     # handle webhook body
-    for handler in [handler_1, handler_2]:
-        try:
-            handler.handle(body, signature)
-        except InvalidSignatureError:
-            abort(400)
-        else:
-            pass
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+    # for handler in [handler_1, handler_2]:
+    #     try:
+    #         handler.handle(body, signature)
+    #     except InvalidSignatureError:
+    #         abort(400)
+    #     else:
+    #         pass
     return "OK"
 
 # botにメッセージを送ったときの処理
