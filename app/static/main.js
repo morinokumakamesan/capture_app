@@ -34,13 +34,13 @@ startButton.addEventListener('click',  startCam)
 var intervalId = null;
 function startCam(){
     console.log('start')
-    intervalId = setInterval(() => {
+    // intervalId = setInterval(() => {
         context = canvas.getContext('2d');
         // 取得したbase64データのヘッドを取り除く
         var img_base64 = canvas.toDataURL('image/jpeg').replace(/^.*,/, '')
         captureImg(img_base64);
-        console.log(intervalId)
-    }, 3000);
+        // console.log(intervalId)
+    // }, 3000);
 }
 
 var button = document.getElementById('end');
@@ -58,9 +58,9 @@ function captureImg(img_base64) {
     body.append('deviceId', deviceId);
 
     // Render
-    // xhr.open('POST', 'https://capture-app.onrender.com/capture_img', true);
+    xhr.open('POST', 'https://capture-app.onrender.com/capture_img', true);
     // ローカル
-    xhr.open('POST', 'http://localhost:10000/capture_img', true);
+    // xhr.open('POST', 'http://localhost:10000/capture_img', true);
 
     xhr.onload = () => {
         console.log(xhr.responseText)
