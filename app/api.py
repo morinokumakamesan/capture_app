@@ -39,17 +39,10 @@ def callback():
     api.logger.info("Request body: " + body)
     # handle webhook body
     try:
-        handler_1.handle(body, signature)
+        # handler_1.handle(body, signature)
         handler_2.handle(body, signature)
     except InvalidSignatureError:
         abort(400)
-    # for handler in [handler_1, handler_2]:
-    #     try:
-    #         handler.handle(body, signature)
-    #     except InvalidSignatureError:
-    #         abort(400)
-    #     else:
-    #         pass
     return "OK"
 
 # botにメッセージを送ったときの処理
