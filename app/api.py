@@ -48,7 +48,8 @@ def callback():
             handler.handle(body, signature)
             break
         except InvalidSignatureError:
-            abort(400)
+            pass
+            # abort(400)
     return "OK"
 
 # botにメッセージを送ったときの処理
