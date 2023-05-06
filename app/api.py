@@ -52,7 +52,7 @@ def callback():
     return "OK"
 
 # botにメッセージを送ったときの処理
-@handler_1.add(MessageEvent, message=TextMessage)
+@handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print('文字を受信')
     image_message = ImageSendMessage(
@@ -60,6 +60,6 @@ def handle_message(event):
         preview_image_url = 'https://capture-app.onrender.com/static/images/r39rquo416g.jpg'
     )
     text_message = TextSendMessage(text=str(event.source.user_id))
-    line_bot_api_1.reply_message(
+    line_bot_api.reply_message(
         event.reply_token, [image_message, text_message]
     )
