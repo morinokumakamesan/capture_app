@@ -35,7 +35,6 @@ startButton.addEventListener('click',  startCam)
 
 var intervalId = null;
 function startCam(){
-    console.log('start')
     // intervalId = setInterval(() => {
         context = canvas.getContext('2d');
         // 取得したbase64データのヘッドを取り除く
@@ -84,5 +83,4 @@ socket.on('connect', () => {
 
 socket.on('img_event', (msg) => {
     startCam();
-    console.log('img_event startCam')
 });
