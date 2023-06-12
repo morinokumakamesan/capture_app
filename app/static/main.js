@@ -29,21 +29,12 @@ video.addEventListener(
     true
 );
 
-var startButton = document.getElementById('start');
-startButton.addEventListener('click',  startCam)
-
 var intervalId = null;
 function startCam(){
     context = canvas.getContext('2d');
     var img_base64 = canvas.toDataURL('image/jpeg').replace(/^.*,/, '')
     captureImg(img_base64);
 }
-
-var button = document.getElementById('end');
-button.addEventListener('click', (event) => {
-    // 定期実行の終了
-    clearInterval(intervalId)
-});
 
 var xhr = new XMLHttpRequest();
 
