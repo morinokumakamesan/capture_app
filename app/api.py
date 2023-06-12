@@ -8,8 +8,13 @@ from io import BytesIO
 from . import service
 from pprint import pprint
 import config
+from flask_socketio import SocketIO, send, emit
+from flask_sse import sse
+import time
 
 api = Flask(__name__, static_url_path='/static')
+
+socketio = SocketIO(api, cors_allowed_origins='*')
 
 @api.route('/', methods=['GET'])
 def index():
@@ -77,3 +82,14 @@ def handle_message(event):
     line_bot_api_2.reply_message(
         event.reply_token, [image_message, text_message]
     )
+
+@socketio.on("ping")  # pingイベントが届いたら呼ばれるコールバック
+def ping(data):
+    print(data)
+    print(time.time())
+    emit("pong", str(time.time()))
+ 
+ 
+@api.route("/hoge")  # これはただのFlaskエンドポイント
+def hoge():
+    return render_template('hoge.html')
