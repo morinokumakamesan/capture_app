@@ -70,3 +70,23 @@ function captureImg(img_base64) {
     xhr.send(body);
 }
 
+// LINE_APIのイベント発火による画像の撮影
+var socket = io();
+console.log(socket)
+socket.on('connect', () => {
+    const initialData = {
+    socketId: socket.id,
+    deviceId: deviceId
+    };
+    socket.emit('initial_data', initialData);
+});
+
+function ping(){
+    t = new Date();
+    socket.emit('ping', {data: t.getTime()});  // サーバにpingイベントを投げつける
+    document.getElementById("log").innerHTML += ('ping: ' + t.getTime() + "<br>");
+}
+socket.on('img_event', (msg) => { // pongが帰ってきたら呼ばれるコールバック
+    startCam
+    // document.getElementById("log").innerHTML += ('pong: ' + t.getTime() + "<br>");
+});

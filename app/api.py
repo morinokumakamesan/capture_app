@@ -62,7 +62,7 @@ def callback():
 @handler_1.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print('文字を受信_1')
-    socketio.emit('pong', str(time.time()), room=client_sessions['8i2np4sobag'])
+    socketio.emit('img_event', str(time.time()), room=client_sessions['8i2np4sobag'])
     image_message = ImageSendMessage(
         original_content_url = 'https://capture-app.onrender.com/static/images/8i2np4sobag.jpg',
         preview_image_url = 'https://capture-app.onrender.com/static/images/8i2np4sobag.jpg'
@@ -85,16 +85,15 @@ def handle_message(event):
         event.reply_token, [image_message, text_message]
     )
 
+@api.route("/hoge")
+def hoge():
+    return render_template('hoge.html')
+
 @socketio.on("ping")
 def ping(data):
     print(data)
     print(time.time())
     emit("pong", str(time.time()))
- 
- 
-@api.route("/hoge")
-def hoge():
-    return render_template('hoge.html')
 
 @socketio.on("initial_data")
 def initial(data):
