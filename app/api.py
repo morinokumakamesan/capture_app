@@ -13,8 +13,7 @@ import time
 import json
 
 api = Flask(__name__, static_url_path='/static')
-socketio = SocketIO(api, cors_allowed_origins='*', ping_timeout=1, ping_interval=60)
-# socketio = SocketIO(api, cors_allowed_origins='*', transports=['websocket'], ping_timeout=10, ping_interval=60)
+socketio = SocketIO(api, cors_allowed_origins='*', ping_timeout=1, ping_interval=86400)
 
 client_sessions = {}
 
@@ -39,24 +38,15 @@ handler_2 = WebhookHandler(config.LINE_CHANNEL_SECRET_2)
 # アプリにPOSTがあったときの処理
 @api.route("/callback", methods=["POST"])
 def callback():
-    # get X-Line-Signature header value
     signature = request.headers["X-Line-Signature"]
-    # get request body as text
     body = request.get_data(as_text=True)
     api.logger.info("Request body: " + body)
-    # handle webhook body
-    # try:
-    #     # handler_1.handle(body, signature)
-    #     handler_2.handle(body, signature)
-    # except InvalidSignatureError:
-    #     abort(400)
     for handler in [handler_1, handler_2]:
         try:
             handler.handle(body, signature)
             break
         except InvalidSignatureError:
             pass
-            # abort(400)
     return "OK"
 
 # botにメッセージを送ったときの処理
@@ -65,7 +55,7 @@ def handle_message(event):
     deviceId = '8i2np4sobag'
     print('文字を受信_1')
     socketio.emit('img_event', str(time.time()), room=client_sessions[deviceId])
-    time.sleep(3)
+    time.sleep(5)
     image_message = ImageSendMessage(
         original_content_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg',
         preview_image_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg'
@@ -80,7 +70,7 @@ def handle_message(event):
 def handle_message(event):
     deviceId = '2f0i9aa7t08'
     print('文字を受信_2')
-    time.sleep(3)
+    time.sleep(5)
     socketio.emit('img_event', str(time.time()), room=client_sessions[deviceId])
     image_message = ImageSendMessage(
         original_content_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg',
@@ -91,10 +81,7 @@ def handle_message(event):
         event.reply_token, [image_message, text_message]
     )
 
-@api.route("/hoge")
-def hoge():
-    return render_template('hoge.html')
-
+# WebSocketの初期化
 @socketio.on("initial_data")
 def initial(data):
     print(data)

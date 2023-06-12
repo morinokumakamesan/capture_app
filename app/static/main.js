@@ -9,7 +9,6 @@ document.getElementById("device_id").innerHTML = deviceId;
 
 var video = document.getElementById('video');
 // getUserMedia()でカメラ映像の取得
-// var media = navigator.mediaDevices.getUserMedia({ video: true });
 var media = navigator.mediaDevices.getUserMedia({ video: {facingMode: "environment"} });
 
 //リアルタイム再生（ストリーミング）を行うためにビデオタグに流し込む
@@ -35,13 +34,9 @@ startButton.addEventListener('click',  startCam)
 
 var intervalId = null;
 function startCam(){
-    // intervalId = setInterval(() => {
-        context = canvas.getContext('2d');
-        // 取得したbase64データのヘッドを取り除く
-        var img_base64 = canvas.toDataURL('image/jpeg').replace(/^.*,/, '')
-        captureImg(img_base64);
-        // console.log(intervalId)
-    // }, 3000);
+    context = canvas.getContext('2d');
+    var img_base64 = canvas.toDataURL('image/jpeg').replace(/^.*,/, '')
+    captureImg(img_base64);
 }
 
 var button = document.getElementById('end');
@@ -71,7 +66,6 @@ function captureImg(img_base64) {
 
 // LINE_APIのイベント発火による画像の撮影
 var socket = io();
-// var socket = io({transports: ['websocket']});
 console.log(socket)
 socket.on('connect', () => {
     const initialData = {
