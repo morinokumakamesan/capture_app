@@ -9,7 +9,6 @@ from . import service
 from pprint import pprint
 import config
 from flask_socketio import SocketIO, send, emit
-from flask_sse import sse
 import time
 
 api = Flask(__name__, static_url_path='/static')
