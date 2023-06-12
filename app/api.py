@@ -65,7 +65,7 @@ def handle_message(event):
     deviceId = '8i2np4sobag'
     print('文字を受信_1')
     socketio.emit('img_event', str(time.time()), room=client_sessions[deviceId])
-    time.sleep(0.5)
+    time.sleep(1)
     image_message = ImageSendMessage(
         original_content_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg',
         preview_image_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg'
@@ -80,7 +80,7 @@ def handle_message(event):
 def handle_message(event):
     deviceId = '2f0i9aa7t08'
     print('文字を受信_2')
-    time.sleep(0.5)
+    time.sleep(1)
     socketio.emit('img_event', str(time.time()), room=client_sessions[deviceId])
     image_message = ImageSendMessage(
         original_content_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg',
