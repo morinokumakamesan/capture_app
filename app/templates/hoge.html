@@ -11,18 +11,22 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 <script type="text/javascript" charset="utf-8">
     var socket = io();
+    console.log(socket)
+    deviceId = localStorage.getItem('deviceId');
     function ping(){
         t = new Date();
         socket.emit('ping', {data: t.getTime()});  // サーバにpingイベントを投げつける
         document.getElementById("log").innerHTML += ('ping: ' + t.getTime() + "<br>");
     }
-    socket.on('connect', function() { // 初期化時に呼ばれるコールバック
-        console.log(socket)
-        socket.emit('ping', {data: socket.id});
-        socket.on('pong', (msg) => { // pongが帰ってきたら呼ばれるコールバック
-            t = new Date();
-            document.getElementById("log").innerHTML += ('pong: ' + t.getTime() + "<br>");
-        });
-        //ping();
+    socket.on('connect', () => {
+      const initialData = {
+        socketId: socket.id,
+        deviceId: deviceId
+      };
+      socket.emit('initial_data', initialData);
+    });
+    socket.on('pong', (msg) => { // pongが帰ってきたら呼ばれるコールバック
+        t = new Date();
+        document.getElementById("log").innerHTML += ('pong: ' + t.getTime() + "<br>");
     });
 </script>

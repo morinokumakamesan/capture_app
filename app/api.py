@@ -10,10 +10,12 @@ from pprint import pprint
 import config
 from flask_socketio import SocketIO, send, emit
 import time
+import json
 
 api = Flask(__name__, static_url_path='/static')
-
 socketio = SocketIO(api, cors_allowed_origins='*')
+
+client_sessions = {}
 
 @api.route('/', methods=['GET'])
 def index():
@@ -59,7 +61,8 @@ def callback():
 # botにメッセージを送ったときの処理
 @handler_1.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print('文字を受信')
+    print('文字を受信_1')
+    emit('message', str(time.time()), room=client_sessions['r39rquo416g'])
     image_message = ImageSendMessage(
         original_content_url = 'https://capture-app.onrender.com/static/images/8i2np4sobag.jpg',
         preview_image_url = 'https://capture-app.onrender.com/static/images/8i2np4sobag.jpg'
@@ -72,7 +75,7 @@ def handle_message(event):
 # botにメッセージを送ったときの処理
 @handler_2.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    print('文字を受信')
+    print('文字を受信_2')
     image_message = ImageSendMessage(
         original_content_url = 'https://capture-app.onrender.com/static/images/2f0i9aa7t08.jpg',
         preview_image_url = 'https://capture-app.onrender.com/static/images/2f0i9aa7t08.jpg'
@@ -82,13 +85,23 @@ def handle_message(event):
         event.reply_token, [image_message, text_message]
     )
 
-@socketio.on("ping")  # pingイベントが届いたら呼ばれるコールバック
+@socketio.on("ping")
 def ping(data):
     print(data)
     print(time.time())
     emit("pong", str(time.time()))
  
  
-@api.route("/hoge")  # これはただのFlaskエンドポイント
+@api.route("/hoge")
 def hoge():
     return render_template('hoge.html')
+
+@socketio.on("initial_data")
+def initial(data):
+    print(data)
+    print(data['socketId'])
+    print(data['deviceId'])
+    print('-'*50)
+    deviceId = data['deviceId']
+    client_sessions[deviceId] = request.sid
+    print(client_sessions)
