@@ -13,7 +13,8 @@ import time
 import json
 
 api = Flask(__name__, static_url_path='/static')
-socketio = SocketIO(api, cors_allowed_origins='*', transports=['websocket'])
+# socketio = SocketIO(api, cors_allowed_origins='*')
+socketio = SocketIO(api, cors_allowed_origins='*', transports=['websocket'], ping_timeout=10, ping_interval=60)
 
 client_sessions = {}
 
