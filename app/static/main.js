@@ -81,13 +81,7 @@ socket.on('connect', () => {
     socket.emit('initial_data', initialData);
 });
 
-function ping(){
-    t = new Date();
-    socket.emit('ping', {data: t.getTime()});  // サーバにpingイベントを投げつける
-    document.getElementById("log").innerHTML += ('ping: ' + t.getTime() + "<br>");
-}
-socket.on('img_event', (msg) => { // pongが帰ってきたら呼ばれるコールバック
+socket.on('img_event', (msg) => {
     startCam();
     console.log('img_event startCam')
-    // document.getElementById("log").innerHTML += ('pong: ' + t.getTime() + "<br>");
 });

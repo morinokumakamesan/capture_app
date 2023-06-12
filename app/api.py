@@ -61,11 +61,12 @@ def callback():
 # botにメッセージを送ったときの処理
 @handler_1.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    deviceId = '8i2np4sobag'
     print('文字を受信_1')
-    socketio.emit('img_event', str(time.time()), room=client_sessions['8i2np4sobag'])
+    socketio.emit('img_event', str(time.time()), room=client_sessions[id_1])
     image_message = ImageSendMessage(
-        original_content_url = 'https://capture-app.onrender.com/static/images/8i2np4sobag.jpg',
-        preview_image_url = 'https://capture-app.onrender.com/static/images/8i2np4sobag.jpg'
+        original_content_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg',
+        preview_image_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg'
     )
     text_message = TextSendMessage(text=str(event.source.user_id))
     line_bot_api_1.reply_message(
@@ -75,10 +76,12 @@ def handle_message(event):
 # botにメッセージを送ったときの処理
 @handler_2.add(MessageEvent, message=TextMessage)
 def handle_message(event):
+    deviceId = '2f0i9aa7t08'
     print('文字を受信_2')
+    socketio.emit('img_event', str(time.time()), room=client_sessions[deviceId])
     image_message = ImageSendMessage(
-        original_content_url = 'https://capture-app.onrender.com/static/images/2f0i9aa7t08.jpg',
-        preview_image_url = 'https://capture-app.onrender.com/static/images/2f0i9aa7t08.jpg'
+        original_content_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg',
+        preview_image_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg'
     )
     text_message = TextSendMessage(text=str(event.source.user_id))
     line_bot_api_2.reply_message(
@@ -88,12 +91,6 @@ def handle_message(event):
 @api.route("/hoge")
 def hoge():
     return render_template('hoge.html')
-
-@socketio.on("ping")
-def ping(data):
-    print(data)
-    print(time.time())
-    emit("pong", str(time.time()))
 
 @socketio.on("initial_data")
 def initial(data):
