@@ -62,7 +62,7 @@ def callback():
 @handler_1.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     print('文字を受信_1')
-    emit('pong', str(time.time()), room=client_sessions['8i2np4sobag'])
+    socketio.emit('pong', str(time.time()), room=client_sessions['8i2np4sobag'])
     image_message = ImageSendMessage(
         original_content_url = 'https://capture-app.onrender.com/static/images/8i2np4sobag.jpg',
         preview_image_url = 'https://capture-app.onrender.com/static/images/8i2np4sobag.jpg'
