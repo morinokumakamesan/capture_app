@@ -87,6 +87,7 @@ function ping(){
     document.getElementById("log").innerHTML += ('ping: ' + t.getTime() + "<br>");
 }
 socket.on('img_event', (msg) => { // pongが帰ってきたら呼ばれるコールバック
-    startCam
+    startCam();
+    console.log('img_event startCam')
     // document.getElementById("log").innerHTML += ('pong: ' + t.getTime() + "<br>");
 });
