@@ -55,7 +55,7 @@ def handle_message(event):
     deviceId = '8i2np4sobag'
     print('文字を受信_1')
     socketio.emit('img_event', str(time.time()), room=client_sessions[deviceId])
-    time.sleep(5)
+    time.sleep(3)
     image_message = ImageSendMessage(
         original_content_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg',
         preview_image_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg'
@@ -71,7 +71,7 @@ def handle_message(event):
 def handle_message(event):
     deviceId = '2f0i9aa7t08'
     print('文字を受信_2')
-    time.sleep(5)
+    time.sleep(3)
     socketio.emit('img_event', str(time.time()), room=client_sessions[deviceId])
     image_message = ImageSendMessage(
         original_content_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg',
@@ -81,6 +81,7 @@ def handle_message(event):
     line_bot_api_2.reply_message(
         event.reply_token, [image_message, text_message]
     )
+    os.remove('./app/static/images/' + deviceId + '.jpg')
 
 # WebSocketの初期化
 @socketio.on("initial_data")
