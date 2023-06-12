@@ -64,6 +64,7 @@ def handle_message(event):
     line_bot_api_1.reply_message(
         event.reply_token, [image_message, text_message]
     )
+    os.remove('./app/static/images/' + deviceId + '.jpg')
 
 # botにメッセージを送ったときの処理
 @handler_2.add(MessageEvent, message=TextMessage)
