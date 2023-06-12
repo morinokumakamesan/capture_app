@@ -71,8 +71,8 @@ function captureImg(img_base64) {
 }
 
 // LINE_APIのイベント発火による画像の撮影
-// var socket = io();
-var socket = io({transports: ['websocket']});
+var socket = io();
+// var socket = io({transports: ['websocket']});
 console.log(socket)
 socket.on('connect', () => {
     const initialData = {
