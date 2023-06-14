@@ -60,9 +60,10 @@ def handle_message(event):
         original_content_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg',
         preview_image_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg'
     )
-    text_message = TextSendMessage(text=str(event.source.user_id))
+    # text_message = TextSendMessage(text=str(event.source.user_id))
     line_bot_api_1.reply_message(
-        event.reply_token, [image_message, text_message]
+        event.reply_token, [image_message]
+        # event.reply_token, [image_message, text_message]
     )
     os.remove('./app/static/images/' + deviceId + '.jpg')
 
@@ -77,9 +78,10 @@ def handle_message(event):
         original_content_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg',
         preview_image_url = 'https://capture-app.onrender.com/static/images/' + deviceId + '.jpg'
     )
-    text_message = TextSendMessage(text=str(event.source.user_id))
+    # text_message = TextSendMessage(text=str(event.source.user_id))
     line_bot_api_2.reply_message(
-        event.reply_token, [image_message, text_message]
+        event.reply_token, [image_message]
+        # event.reply_token, [image_message, text_message]
     )
     os.remove('./app/static/images/' + deviceId + '.jpg')
 
